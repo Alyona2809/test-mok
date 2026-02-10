@@ -83,7 +83,7 @@ export const ru = {
   },
   sidebar: {
     regionDistrict: "Санкт‑Петербург / Адмиралтейский",
-    location: "Семёновская",
+    location: "Семёновский",
     adminMonitoring: "Администрирование и мониторинг",
     nav: {
       monitoring: "Монитор парка ТА",

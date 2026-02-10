@@ -20,7 +20,7 @@ export async function GET(
     headers: {
       accept: req.headers.get("accept") ?? "application/json",
     },
-    // RTK Query будет управлять кэшем на клиенте; прокси не кешируем.
+    // RTK Query manages client cache; proxy stays no-store.
     cache: "no-store",
   });
 

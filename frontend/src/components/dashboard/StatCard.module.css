@@ -1,0 +1,83 @@
+.card {
+  height: 100%;
+}
+
+.body {
+  padding: 20px 20px 16px 20px;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.openBtn {
+  display: grid;
+  height: 32px;
+  width: 32px;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.openBtn:hover {
+  color: var(--foreground);
+}
+
+.openIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.bottomRow {
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.value {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+.toneGood {
+  color: #16a34a;
+}
+
+.toneWarn {
+  color: #d97706;
+}
+
+.toneBad {
+  color: #e11d48;
+}
+
+.pct {
+  padding-bottom: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.skelValue {
+  height: 40px;
+  width: 80px;
+  border-radius: 12px;
+}
+

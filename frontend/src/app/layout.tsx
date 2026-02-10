@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { defaultLocale } from "@/i18n/config";
+import { messagesByLocale } from "@/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +15,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "Администрирование и мониторинг",
-  description: "Дашборд автоматов и продаж",
+  title: messagesByLocale[defaultLocale].meta.title,
+  description: messagesByLocale[defaultLocale].meta.description,
 };
 
 export default function RootLayout({
@@ -24,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang={defaultLocale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased bg-background text-foreground`}
       >
         <Providers>{children}</Providers>
       </body>

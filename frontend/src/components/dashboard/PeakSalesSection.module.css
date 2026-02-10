@@ -1,0 +1,45 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.contentPadTop {
+  padding-top: 20px;
+}
+
+.skelChart {
+  height: 260px;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.chart {
+  height: 260px;
+}
+
+.heatGrid {
+  display: grid;
+  grid-template-columns: repeat(31, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.heatCell {
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid rgba(17, 24, 39, 0.06);
+}
+

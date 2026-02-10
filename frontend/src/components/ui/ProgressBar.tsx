@@ -1,19 +1,31 @@
 import { cn } from "@/lib/cn";
+import styles from "./ProgressBar.module.css";
 
 export function ProgressBar({
   value,
+  size = "md",
+  tone = "primary",
   className,
-  barClassName,
 }: {
   value: number;
+  size?: "md" | "sm";
+  tone?: "primary" | "good" | "warn" | "bad";
   className?: string;
-  barClassName?: string;
 }) {
   const v = Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0;
+  const toneClass =
+    tone === "good"
+      ? styles.toneGood
+      : tone === "warn"
+        ? styles.toneWarn
+        : tone === "bad"
+          ? styles.toneBad
+          : styles.tonePrimary;
   return (
     <div
       className={cn(
-        "h-2 w-full overflow-hidden rounded-full bg-black/[0.06]",
+        styles.track,
+        size === "sm" ? styles.thin : undefined,
         className,
       )}
       role="progressbar"
@@ -23,8 +35,8 @@ export function ProgressBar({
     >
       <div
         className={cn(
-          "h-full rounded-full bg-primary transition-[width] duration-700 ease-out",
-          barClassName,
+          styles.bar,
+          toneClass,
         )}
         style={{ width: `${v}%` }}
       />

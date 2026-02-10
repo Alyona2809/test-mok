@@ -1,0 +1,192 @@
+.aside {
+  display: flex;
+  height: 100vh;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  background: var(--card);
+}
+
+.rail {
+  display: flex;
+  width: 64px;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid var(--border);
+  background: var(--card);
+  flex-shrink: 0;
+  background: var(--background-origin);
+}
+
+.logoBanner {
+  position: relative;
+  width: 100%;
+  height: 64px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logoBannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.railNav {
+  margin-top: 5px;
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.railLink {
+  display: grid;
+  height: 54px;
+  width: 54px;
+  place-items: center;
+  border: 1px solid transparent;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.railLinkInactive {
+  color: var(--text);
+}
+
+.railLinkInactive:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--foreground);
+}
+
+.railIcon {
+  height: 24px;
+  width: 24px;
+}
+
+.railBottom {
+  padding: 0 8px;
+}
+
+.menu {
+  display: flex;
+  width: 350px;
+  flex-direction: column;
+  background: var(--card);
+}
+
+.menuHeader {
+  padding: 9px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.menuHeaderInner {
+  min-width: 0;
+}
+
+.region {
+  font: var(--title-medium);
+  color: var(--text-light);
+}
+
+.locationRow {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--text-title);
+}
+
+.Chevron {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.locationName {
+  color: var(--text);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 8px;
+  color: var(--text-title);
+  font: var(--title-small);
+}
+
+.locationChevron {
+  margin-left: 2px;
+  width: 15px;
+  height: 17px;
+  color: var(--text-extra-light);
+  flex-shrink: 0;
+}
+
+.menuSectionTitle {
+  padding: 20px 20px 16px 20px;
+  font: var(--title);
+  letter-spacing: var(--title-letter-spacing);
+  text-transform: uppercase;
+  color: var(--text-title);
+}
+
+.nav {
+  padding: 0 12px 16px 12px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+  margin-bottom: 4px;
+}
+
+.navLinkActive {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--foreground);
+}
+
+.navLinkInactive {
+  color: var(--text);
+}
+
+.navLinkInactive:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--foreground);
+}
+
+.navIcon {
+  height: 18px;
+  width: 18px;
+  opacity: 0.9;
+}
+
+.navBottom {
+  font: var(--title-medium-rare);
+  text-decoration: none;
+}
+
+.menuFooter {
+  margin-top: auto;
+  padding: 0 20px 20px 20px;
+  font-size: 12px;
+  color: var(--muted);
+}

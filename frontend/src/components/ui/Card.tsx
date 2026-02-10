@@ -3,9 +3,11 @@ import styles from "./Card.module.css";
 
 export function Card({
   className,
+  style,
   children,
 }: {
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }) {
   return (
@@ -14,6 +16,7 @@ export function Card({
         styles.card,
         className,
       )}
+      style={style}
     >
       {children}
     </div>

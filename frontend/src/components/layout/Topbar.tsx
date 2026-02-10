@@ -1,6 +1,5 @@
 "use client";
 
-import { Bell } from "lucide-react";
 import { useI18n } from "@/i18n";
 import styles from "./Topbar.module.css";
 import Image from "next/image";

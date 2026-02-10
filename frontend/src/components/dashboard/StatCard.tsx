@@ -1,11 +1,11 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { cn } from "@/lib/cn";
 import { useI18n } from "@/i18n";
 import styles from "./StatCard.module.css";
+import Image from "next/image";
 
 export function StatCard({
   label,
@@ -20,6 +20,8 @@ export function StatCard({
 }) {
   const { t } = useI18n();
 
+  const fillPct = pct == null ? undefined : Math.max(0, Math.min(100, pct));
+
   const toneClass =
     tone === "good"
       ? styles.toneGood
@@ -29,8 +31,27 @@ export function StatCard({
           ? styles.toneBad
           : undefined;
 
+  const fillToneClass =
+    tone === "good"
+      ? styles.fillGood
+      : tone === "warn"
+        ? styles.fillWarn
+        : tone === "bad"
+          ? styles.fillBad
+          : undefined;
+
+  const fillBgClass =
+    fillPct == null ? undefined : cn(styles.bgFill, fillToneClass);
+
+  const fillStyle =
+    fillPct == null
+      ? undefined
+      : ({
+          ["--fill" as never]: fillPct,
+        } as React.CSSProperties);
+
   return (
-    <Card className={styles.card}>
+    <Card className={cn(styles.card, fillBgClass)} style={fillStyle}>
       <div className={styles.body}>
         <div className={styles.topRow}>
           <div className={styles.label}>{label}</div>
@@ -39,7 +60,7 @@ export function StatCard({
             className={styles.openBtn}
             aria-label={t("common.open")}
           >
-            <ArrowUpRight className={styles.openIcon} />
+            <Image src="/nav.svg" alt="" width={20} height={20} />
           </button>
         </div>
 
@@ -55,4 +76,3 @@ export function StatCard({
     </Card>
   );
 }
-

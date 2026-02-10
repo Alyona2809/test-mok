@@ -2,18 +2,18 @@
 
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
+import styles from "./DashboardShell.module.css";
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
+    <div className={styles.shell}>
       <Sidebar />
-      <div className="min-w-0 flex-1">
+      <div className={styles.content}>
         <Topbar />
-        <main className="px-6 py-6">
-          <div className="mx-auto w-full max-w-[1240px]">{children}</div>
+        <main className={styles.main}>
+          <div className={styles.container}>{children}</div>
         </main>
       </div>
     </div>
   );
 }
-

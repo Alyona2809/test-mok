@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import styles from "./Card.module.css";
 
 export function Card({
   className,
@@ -10,7 +11,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border bg-card shadow-sm",
+        styles.card,
         className,
       )}
     >
@@ -27,7 +28,7 @@ export function CardHeader({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("px-5 pt-5 pb-3", className)}>{children}</div>
+    <div className={cn(styles.header, className)}>{children}</div>
   );
 }
 
@@ -39,7 +40,7 @@ export function CardTitle({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("text-sm font-medium text-muted", className)}>
+    <div className={cn(styles.title, className)}>
       {children}
     </div>
   );
@@ -52,6 +53,6 @@ export function CardContent({
   className?: string;
   children: React.ReactNode;
 }) {
-  return <div className={cn("px-5 pb-5", className)}>{children}</div>;
+  return <div className={cn(styles.content, className)}>{children}</div>;
 }
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
+import styles from "./Segmented.module.css";
 
 export type SegmentedOption<T extends string> = { value: T; label: string };
 
@@ -11,21 +12,23 @@ export function Segmented<T extends string>({
   options,
   className,
   layoutId = "segmented-pill",
+  ariaLabel,
 }: {
   value: T;
   onChange: (v: T) => void;
   options: SegmentedOption<T>[];
   className?: string;
   layoutId?: string;
+  ariaLabel?: string;
 }) {
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-full border border-border bg-card p-1 shadow-sm",
+        styles.root,
         className,
       )}
       role="tablist"
-      aria-label="Переключатель вида"
+      aria-label={ariaLabel ?? "Segmented control"}
     >
       {options.map((opt) => {
         const selected = opt.value === value;
@@ -35,8 +38,8 @@ export function Segmented<T extends string>({
             type="button"
             onClick={() => onChange(opt.value)}
             className={cn(
-              "relative px-3 py-1.5 text-xs font-medium transition-colors",
-              selected ? "text-foreground" : "text-muted hover:text-foreground",
+              styles.button,
+              selected ? styles.buttonSelected : styles.buttonUnselected,
             )}
             role="tab"
             aria-selected={selected}
@@ -44,11 +47,11 @@ export function Segmented<T extends string>({
             {selected ? (
               <motion.span
                 layoutId={layoutId}
-                className="absolute inset-0 rounded-full bg-black/[0.04]"
+                className={styles.pill}
                 transition={{ type: "spring", stiffness: 500, damping: 40 }}
               />
             ) : null}
-            <span className="relative z-10">{opt.label}</span>
+            <span className={styles.label}>{opt.label}</span>
           </button>
         );
       })}

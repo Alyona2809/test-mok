@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, TileLayer, Tooltip } from "react-leaflet";
 import type { SalesIndexItem, VendingMachineMoneyStatus } from "@/lib/api/types";
+import { useI18n } from "@/i18n";
+import styles from "./VendingMap.module.css";
 
 type Point = {
   id: number;
@@ -34,6 +36,8 @@ export function VendingMap({
   salesIndex?: SalesIndexItem[];
   moneyFill?: VendingMachineMoneyStatus[];
 }) {
+  const { t } = useI18n();
+
   const indexById = useMemo(() => {
     const map = new Map<number, number>();
     for (const item of salesIndex ?? []) map.set(item.machineId, item.percentage);
@@ -51,7 +55,7 @@ export function VendingMap({
       center={[59.9311, 30.3162]}
       zoom={13}
       scrollWheelZoom={false}
-      className="h-full w-full"
+      className={styles.map}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -65,8 +69,8 @@ export function VendingMap({
           m == null ? undefined : Math.round((m.coinFillPercentage + m.banknotesFillPercentage) / 2);
         const color = colorByIndex(idx);
         const icon = L.divIcon({
-          className: "vm-pin-wrapper",
-          html: `<div class="vm-pin" style="--vm-pin:${color}">${i + 1}</div>`,
+          className: styles.pinWrapper,
+          html: `<div class="${styles.pin}" style="--vm-pin:${color}">${i + 1}</div>`,
           iconSize: [28, 28],
           iconAnchor: [14, 14],
         });
@@ -77,12 +81,12 @@ export function VendingMap({
             icon={icon}
           >
             <Tooltip direction="top" offset={[0, -10]} opacity={1}>
-              <div className="text-xs">
-                <div className="font-semibold">
-                  ТА {p.type}-{p.id}
+              <div className={styles.tooltip}>
+                <div className={styles.tooltipTitle}>
+                  {t("map.vendingMachineTitle", { type: p.type, id: p.id })}
                 </div>
-                <div>Индекс продаж: {idx ?? "—"}%</div>
-                <div>Заполненность денег: {fill ?? "—"}%</div>
+                <div className={styles.tooltipRow}>{t("map.salesIndex", { value: idx ?? "—" })}</div>
+                <div className={styles.tooltipRow}>{t("map.moneyFill", { value: fill ?? "—" })}</div>
               </div>
             </Tooltip>
           </Marker>

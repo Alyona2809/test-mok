@@ -1,0 +1,101 @@
+export const ru = {
+  meta: {
+    title: "Администрирование и мониторинг",
+    description: "Дашборд автоматов и продаж",
+  },
+  common: {
+    open: "Открыть",
+    section: "Раздел",
+    demoTab: "Демо-вкладка: {tab}",
+    goToReport: "Перейти в отчет",
+    changeMetric: "Изменить показатель",
+  },
+  aria: {
+    segmented: "Переключатель вида",
+  },
+  dashboard: {
+    period: {
+      today: "Сегодня",
+      yesterday: "Вчера",
+      week: "Неделя",
+      month: "Месяц",
+      quarter: "Квартал",
+    },
+    stats: {
+      totalMachines: "Всего автоматов",
+      working: "Работающих",
+      lowSupply: "Мало товаров",
+      needsRepair: "Требуют обслуживания",
+    },
+    map: {
+      tabs: {
+        status: "Состояние автоматов",
+        avgRevenue: "Средняя выручка",
+        downtime: "Простой ТА",
+        fillLevel: "Уровень заполнения",
+      },
+    },
+    sections: {
+      machinesHealth: "Обзор состояния ТА",
+      salesAnalytics: "Аналитика продаж и потребительского поведения",
+      peakSalesTime: "Время пиковых продаж",
+    },
+    cards: {
+      salesIndexTitle: "Индекс продаж по средней исторической активности",
+      productFillTitle: "Заполнение товарами",
+      productFillSubtitle: "ТА требуют заполнения товаром",
+      moneyFillTitle: "Состояние денежных средств",
+      moneyFillSubtitle: "Сигналы наполнение ТА",
+      sortFirstFull: "Сначала полные ТА",
+      salesByVmTitle: "ТА по объемам продаж",
+      totalSales: "Всего продаж",
+      top5: "Топ-5: {count}",
+      popularTitle: "Популярные",
+      categoriesCount: "Категорий: {count}",
+    },
+    tabs: {
+      products: "Товары",
+      categories: "Категории",
+    },
+    peakView: {
+      line: "Линейный график",
+      heat: "Тепловая карта",
+    },
+    tooltip: {
+      vm: "ТА",
+      sales: "Продажи",
+      peak: "Пик",
+      fill: "заполнение",
+    },
+  },
+  money: {
+    coins: "Монеты",
+    banknotes: "Купюры",
+  },
+  topbar: {
+    searchPlaceholder: "Найти",
+    searchAria: "Поиск",
+    refreshed: "Обновлено",
+    notifications: "Уведомления",
+    language: "Язык",
+    admin: "Админ",
+    city: "Санкт‑Петербург",
+  },
+  sidebar: {
+    regionDistrict: "Санкт‑Петербург / Адмиралтейский",
+    location: "Семёновская",
+    adminMonitoring: "Администрирование и мониторинг",
+    nav: {
+      monitoring: "Монитор парка ТА",
+      remoteControl: "Удаленное управление ТА",
+      registration: "Регистрация ТА",
+      decommission: "Вывод ТА из эксплуатации",
+    },
+  },
+  map: {
+    vendingMachineTitle: "ТА {type}-{id}",
+    salesIndex: "Индекс продаж: {value}%",
+    moneyFill: "Заполненность денег: {value}%",
+    dayTitle: "День {day}: {time}",
+  },
+} as const;

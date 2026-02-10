@@ -1,0 +1,21 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.content {
+  min-width: 0;
+  flex: 1;
+}
+
+.main {
+  padding: 24px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+}

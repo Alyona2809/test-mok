@@ -1,0 +1,32 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dateBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.dateBtn:hover {
+  color: var(--foreground);
+}
+
+.chev {
+  height: 16px;
+  width: 16px;
+  opacity: 0.7;
+}
+

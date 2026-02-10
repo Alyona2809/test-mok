@@ -1,0 +1,257 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.col12 {
+  grid-column: span 12 / span 12;
+}
+
+@media (min-width: 1280px) {
+  .colXl4 {
+    grid-column: span 4 / span 4;
+  }
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeaderRowTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardTitleStrong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.subText {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.stackSm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stackXs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rowBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.leftInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.textXs {
+  font-size: 12px;
+}
+
+.textSm {
+  font-size: 14px;
+}
+
+.textMuted {
+  color: var(--muted);
+}
+
+.textFg {
+  color: var(--foreground);
+}
+
+.fontMedium {
+  font-weight: 500;
+}
+
+.fontSemi {
+  font-weight: 600;
+}
+
+.chip {
+  display: grid;
+  height: 20px;
+  width: 20px;
+  place-items: center;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.chipB {
+  background: rgba(216, 11, 58, 0.1);
+  color: var(--primary);
+}
+
+.chipM {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+
+.chipOther {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--muted);
+}
+
+.bigNumberRow {
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bigNumber {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.skelBigNumberInline {
+  display: inline-block;
+  height: 40px;
+  width: 80px;
+  border-radius: 12px;
+}
+
+.pctPill {
+  margin-bottom: 4px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.chart190 {
+  height: 190px;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.goReport {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sortBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.sortBtn:hover {
+  color: var(--foreground);
+}
+
+.iconSm {
+  height: 16px;
+  width: 16px;
+  opacity: 0.7;
+}
+
+.skelRow {
+  height: 36px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.skelMoneyRow {
+  height: 48px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.moneyList > * + * {
+  border-top: 1px solid var(--border);
+}
+
+.moneyRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.machineIdBox {
+  min-width: 96px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.moneyGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metricIcon {
+  height: 14px;
+  width: 14px;
+  opacity: 0.7;
+}
+

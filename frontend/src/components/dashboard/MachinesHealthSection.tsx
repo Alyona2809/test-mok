@@ -1,6 +1,5 @@
 "use client";
 
-import { Banknote, ChevronDown, Coins } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -14,10 +13,15 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Skeleton } from "@/components/ui/Skeleton";
-import type { SalesIndexItem, VendingMachineMoneyStatus } from "@/lib/api/types";
+import type {
+  SalesIndexItem,
+  VendingMachineMoneyStatus,
+} from "@/lib/api/types";
 import { cn } from "@/lib/cn";
 import { useI18n } from "@/i18n";
 import styles from "./MachinesHealthSection.module.css";
+import Image from "next/image";
+import { GoToReportButton } from "@/components/ui/GoToReportButton";
 
 type LabelRenderProps = {
   x?: number | string;
@@ -25,6 +29,7 @@ type LabelRenderProps = {
   width?: number | string;
   height?: number | string;
   payload?: unknown;
+  viewBox?: unknown;
 };
 
 export function MachinesHealthSection({
@@ -47,23 +52,40 @@ export function MachinesHealthSection({
   moneyFillTop: VendingMachineMoneyStatus[];
 }) {
   const { t } = useI18n();
+  const PRODUCT_FILL_HIGHLIGHT_THRESHOLD = 10;
 
   return (
     <section className={styles.section}>
-      <div className={styles.title}>{t("dashboard.sections.machinesHealth")}</div>
+      <div className={styles.title}>
+        {t("dashboard.sections.machinesHealth")}
+      </div>
       <div className={styles.grid}>
-        <Card className={cn(styles.col12, styles.colXl4)}>
+        <Card className={styles.card321}>
           <CardHeader>
             <div className={styles.cardHeaderRow}>
               <div>
                 <CardTitle className={styles.cardTitleStrong}>
                   {t("dashboard.cards.salesIndexTitle")}
                 </CardTitle>
-                <div className={styles.subText}>{t("common.changeMetric")}</div>
+                <div className={styles.subText}>
+                  <span className={styles.subTextPill}>
+                    <span className={styles.subTextPillLabel}>
+                      {t("common.changeMetric")}
+                    </span>
+                  </span>
+                  <Image
+                    className={cn(styles.subTextIcon, styles.subTextIconRight)}
+                    src="/arrow-down-short-wide.svg"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden
+                  />
+                </div>
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className={styles.cardContent}>
             {salesIndexLoading ? (
               <div className={styles.stackSm}>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -73,9 +95,18 @@ export function MachinesHealthSection({
             ) : (
               <div className={styles.stackSm}>
                 {salesIndexTop.map((x) => (
-                  <div key={`${x.machineType}-${x.machineId}`} className={styles.stackXs}>
+                  <div
+                    key={`${x.machineType}-${x.machineId}`}
+                    className={styles.stackXs}
+                  >
                     <div className={cn(styles.rowBetween, styles.textXs)}>
-                      <div className={cn(styles.leftInline, styles.fontMedium, styles.textFg)}>
+                      <div
+                        className={cn(
+                          styles.leftInline,
+                          styles.fontMedium,
+                          styles.textFg,
+                        )}
+                      >
                         <span
                           className={cn(
                             styles.chip,
@@ -94,39 +125,29 @@ export function MachinesHealthSection({
                     </div>
                     <ProgressBar
                       value={x.percentage}
-                      tone={x.percentage >= 70 ? "good" : x.percentage >= 40 ? "warn" : "bad"}
+                      tone={
+                        x.percentage >= 70
+                          ? "good"
+                          : x.percentage >= 40
+                            ? "warn"
+                            : "bad"
+                      }
                     />
                   </div>
                 ))}
               </div>
             )}
+            <GoToReportButton className={styles.goToReportButton} />
           </CardContent>
         </Card>
 
-        <Card className={cn(styles.col12, styles.colXl4)}>
+        <Card className={styles.card321}>
           <CardHeader>
-            <div className={styles.cardHeaderRow}>
-              <div>
-                <CardTitle className={styles.cardTitleStrong}>
-                  {t("dashboard.cards.productFillTitle")}
-                </CardTitle>
-                <div className={styles.bigNumberRow}>
-                  <div className={styles.bigNumber}>
-                    {productFillTotal ?? <Skeleton className={styles.skelBigNumberInline} />}
-                  </div>
-                  {productFillPct == null ? null : (
-                    <div className={styles.pctPill}>
-                      {productFillPct}%
-                    </div>
-                  )}
-                </div>
-                <div className={cn(styles.textXs, styles.textMuted)}>
-                  {t("dashboard.cards.productFillSubtitle")}
-                </div>
-              </div>
-            </div>
+            <CardTitle className={styles.cardTitleStrong}>
+              {t("dashboard.cards.productFillTitle")}
+            </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className={styles.cardContent}>
             {productFillLoading ? (
               <Skeleton className={styles.chart190} />
             ) : (
@@ -134,7 +155,7 @@ export function MachinesHealthSection({
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={productFillChart}
-                    barSize={32}
+                    barSize={57}
                     margin={{ top: 22, right: 8, left: 8, bottom: 0 }}
                   >
                     <XAxis dataKey="name" hide />
@@ -147,20 +168,31 @@ export function MachinesHealthSection({
                       }}
                       formatter={(v: unknown, _n, props) => {
                         const val = typeof v === "number" ? v : Number(v);
-                        const pct = (props.payload as { value?: number })?.value;
+                        const pct = (props.payload as { value?: number })
+                          ?.value;
                         return [
                           `${val} (${t("dashboard.tooltip.fill")}: ${pct ?? "—"}%)`,
                           t("dashboard.tooltip.vm"),
                         ];
                       }}
                     />
-                    <Bar dataKey="itemCount" radius={[14, 14, 14, 14]}>
+                    <Bar
+                      dataKey="itemCount"
+                      radius={[16, 16, 16, 16]}
+                      background={{ fill: "var(--muted)", radius: 16 }}
+                    >
                       {productFillChart.map((entry) => {
-                        const highlight = (entry.value ?? 100) <= 10;
+                        const highlight =
+                          (entry.value ?? 0) >=
+                          PRODUCT_FILL_HIGHLIGHT_THRESHOLD;
                         return (
                           <Cell
                             key={entry.name}
-                            fill={highlight ? "var(--primary)" : "rgba(17,24,39,0.16)"}
+                            fill={
+                              highlight
+                                ? "var(--primary)"
+                                : "rgba(71,84,103,0.72)"
+                            }
                           />
                         );
                       })}
@@ -168,9 +200,17 @@ export function MachinesHealthSection({
                         dataKey="itemCount"
                         content={(props: LabelRenderProps) => {
                           const x =
-                            typeof props.x === "number" ? props.x : props.x == null ? NaN : Number(props.x);
+                            typeof props.x === "number"
+                              ? props.x
+                              : props.x == null
+                                ? NaN
+                                : Number(props.x);
                           const y =
-                            typeof props.y === "number" ? props.y : props.y == null ? NaN : Number(props.y);
+                            typeof props.y === "number"
+                              ? props.y
+                              : props.y == null
+                                ? NaN
+                                : Number(props.y);
                           const width =
                             typeof props.width === "number"
                               ? props.width
@@ -183,24 +223,49 @@ export function MachinesHealthSection({
                               : props.height == null
                                 ? NaN
                                 : Number(props.height);
-                          if (![x, y, width, height].every(Number.isFinite)) return null;
+                          if (![x, y, width, height].every(Number.isFinite))
+                            return null;
 
                           const payload = props.payload as
                             | { itemCount?: number; value?: number }
                             | undefined;
-                          const highlight = (payload?.value ?? 100) <= 10;
-                          if (!highlight) return null;
+                          const itemCount = payload?.itemCount;
+                          if (itemCount == null) return null;
+
+                          const label = String(itemCount);
+                          const pillHeight = 20;
+                          const pillPaddingX = 10;
+                          const pillWidth = Math.max(
+                            34,
+                            label.length * 7 + pillPaddingX * 2,
+                          );
+                          const cx = x + width / 2;
+                          const pillX = cx - pillWidth / 2;
+                          const unclampedPillY = y + height - pillHeight - 10;
+                          const pillY = Math.max(y + 6, unclampedPillY);
                           return (
-                            <text
-                              x={x + width / 2}
-                              y={y + height / 2 + 4}
-                              textAnchor="middle"
-                              fill="#ffffff"
-                              fontSize={12}
-                              fontWeight={700}
-                            >
-                              {payload?.itemCount ?? ""}
-                            </text>
+                            <g>
+                              <rect
+                                x={pillX}
+                                y={pillY}
+                                width={pillWidth}
+                                height={pillHeight}
+                                rx={10}
+                                ry={10}
+                                fill="#ffffff"
+                                stroke="rgba(16,24,40,0.08)"
+                              />
+                              <text
+                                x={cx}
+                                y={pillY + 14}
+                                textAnchor="middle"
+                                fill="rgba(16,24,40,0.92)"
+                                fontSize={12}
+                                fontWeight={600}
+                              >
+                                {label}
+                              </text>
+                            </g>
                           );
                         }}
                       />
@@ -208,32 +273,69 @@ export function MachinesHealthSection({
                         dataKey="value"
                         content={(props: LabelRenderProps) => {
                           const x =
-                            typeof props.x === "number" ? props.x : props.x == null ? NaN : Number(props.x);
+                            typeof props.x === "number"
+                              ? props.x
+                              : props.x == null
+                                ? NaN
+                                : Number(props.x);
                           const y =
-                            typeof props.y === "number" ? props.y : props.y == null ? NaN : Number(props.y);
+                            typeof props.y === "number"
+                              ? props.y
+                              : props.y == null
+                                ? NaN
+                                : Number(props.y);
                           const width =
                             typeof props.width === "number"
                               ? props.width
                               : props.width == null
                                 ? NaN
                                 : Number(props.width);
-                          if (![x, y, width].every(Number.isFinite)) return null;
+                          const height =
+                            typeof props.height === "number"
+                              ? props.height
+                              : props.height == null
+                                ? NaN
+                                : Number(props.height);
+                          if (![x, y, width, height].every(Number.isFinite))
+                            return null;
 
-                          const payload = props.payload as { value?: number } | undefined;
+                          const payload = props.payload as
+                            | { value?: number; itemCount?: number }
+                            | undefined;
                           const v = payload?.value;
                           if (v == null) return null;
-                          const highlight = v <= 10;
-                          if (!highlight) return null;
+
+                          const vb = props.viewBox as
+                            | {
+                                x?: unknown;
+                                y?: unknown;
+                                width?: unknown;
+                                height?: unknown;
+                              }
+                            | undefined;
+                          const vbY =
+                            vb && typeof vb.y === "number" ? vb.y : undefined;
+                          const vbH =
+                            vb && typeof vb.height === "number"
+                              ? vb.height
+                              : undefined;
+                          const yInside =
+                            vbY != null && vbH != null
+                              ? Math.max(
+                                  vbY + 14,
+                                  Math.min(vbY + vbH - 8, vbY + 28),
+                                )
+                              : Math.max(16, Math.min(y + height - 8, y + 18));
                           return (
                             <text
                               x={x + width / 2}
-                              y={y - 8}
+                              y={yInside}
                               textAnchor="middle"
-                              fill="rgba(107,114,128,0.9)"
-                              fontSize={11}
-                              fontWeight={600}
+                              fill="var(--text-light)"
+                              fontSize={12}
+                              fontWeight={500}
                             >
-                              {v}%
+                              {v} %
                             </text>
                           );
                         }}
@@ -243,29 +345,51 @@ export function MachinesHealthSection({
                 </ResponsiveContainer>
               </div>
             )}
-            <div className={styles.goReport}>{t("common.goToReport")}</div>
+            <div className={styles.bigNumberRow}>
+              <div className={styles.bigNumberBlock}>
+                <div className={styles.bigNumber}>
+                  {productFillTotal ?? (
+                    <Skeleton className={styles.skelBigNumberInline} />
+                  )}
+                </div>
+                <div className={styles.bigNumberCaption}>
+                  {t("dashboard.cards.productFillSubtitle")}
+                </div>
+              </div>
+              {productFillPct == null ? null : (
+                <div className={styles.pctPill}>{productFillPct}%</div>
+              )}
+            </div>
+            <GoToReportButton className={styles.goToReportButton} />
           </CardContent>
         </Card>
 
-        <Card className={cn(styles.col12, styles.colXl4)}>
-          <CardHeader>
+        <Card className={styles.card321}>
+          <CardHeader className={styles.moneyFillHeader}>
             <div className={styles.cardHeaderRowTop}>
               <div>
                 <CardTitle className={styles.cardTitleStrong}>
                   {t("dashboard.cards.moneyFillTitle")}
                 </CardTitle>
-                <div className={styles.subText}>{t("dashboard.cards.moneyFillSubtitle")}</div>
+                <div className={styles.subText}>
+                  <Image
+                    className={styles.subTextIcon}
+                    src="/arrow-down-short-wide.svg"
+                    alt=""
+                    width={16}
+                    height={16}
+                    aria-hidden
+                  />
+                  <span className={styles.subTextPill}>
+                    <span className={styles.subTextPillLabel}>
+                      {t("dashboard.cards.moneyFillSubtitle")}
+                    </span>
+                  </span>
+                </div>
               </div>
-              <button
-                type="button"
-                className={styles.sortBtn}
-              >
-                {t("dashboard.cards.sortFirstFull")}
-                <ChevronDown className={styles.iconSm} />
-              </button>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className={styles.cardContent}>
             {moneyFillLoading ? (
               <div className={styles.stackSm}>
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -275,7 +399,10 @@ export function MachinesHealthSection({
             ) : (
               <div className={styles.moneyList}>
                 {moneyFillTop.map((x) => (
-                  <div key={`${x.machineType}-${x.machineId}`} className={styles.moneyRow}>
+                  <div
+                    key={`${x.machineType}-${x.machineId}`}
+                    className={styles.moneyRow}
+                  >
                     <div className={styles.machineIdBox}>
                       <span
                         className={cn(
@@ -289,7 +416,13 @@ export function MachinesHealthSection({
                       >
                         {x.machineType}
                       </span>
-                      <span className={cn(styles.textSm, styles.fontSemi, styles.textFg)}>
+                      <span
+                        className={cn(
+                          styles.textSm,
+                          styles.fontSemi,
+                          styles.textFg,
+                        )}
+                      >
                         #{x.machineId}
                       </span>
                     </div>
@@ -298,16 +431,26 @@ export function MachinesHealthSection({
                       <div className={styles.metric}>
                         <div className={styles.metricHeader}>
                           <span className={styles.metricLabel}>
-                            <Coins className={styles.metricIcon} />
-                            {t("money.coins")}
+                            <Image
+                              src="/coin-alt.svg"
+                              alt="Coin"
+                              width={16}
+                              height={16}
+                            />
                           </span>
-                          <span className={styles.fontMedium}>{x.coinFillPercentage}%</span>
+                          <span className={styles.fontMedium}>
+                            {x.coinFillPercentage}%
+                          </span>
                         </div>
                         <ProgressBar
                           value={x.coinFillPercentage}
                           size="sm"
                           tone={
-                            x.coinFillPercentage >= 70 ? "good" : x.coinFillPercentage >= 40 ? "warn" : "primary"
+                            x.coinFillPercentage >= 70
+                              ? "good"
+                              : x.coinFillPercentage >= 40
+                                ? "warn"
+                                : "primary"
                           }
                         />
                       </div>
@@ -315,10 +458,16 @@ export function MachinesHealthSection({
                       <div className={styles.metric}>
                         <div className={styles.metricHeader}>
                           <span className={styles.metricLabel}>
-                            <Banknote className={styles.metricIcon} />
-                            {t("money.banknotes")}
+                            <Image
+                              src="/cash.svg"
+                              alt="Banknote"
+                              width={16}
+                              height={16}
+                            />
                           </span>
-                          <span className={styles.fontMedium}>{x.banknotesFillPercentage}%</span>
+                          <span className={styles.fontMedium}>
+                            {x.banknotesFillPercentage}%
+                          </span>
                         </div>
                         <ProgressBar
                           value={x.banknotesFillPercentage}
@@ -337,11 +486,10 @@ export function MachinesHealthSection({
                 ))}
               </div>
             )}
-            <div className={styles.goReport}>{t("common.goToReport")}</div>
+            <GoToReportButton className={styles.goToReportButton} />
           </CardContent>
         </Card>
       </div>
     </section>
   );
 }
-

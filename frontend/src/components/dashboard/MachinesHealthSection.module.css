@@ -5,24 +5,38 @@
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--muted);
+  font: var(--text-semibold-large);
+  color: var(--text-light);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  align-items: stretch;
   gap: 20px;
 }
 
-.col12 {
-  grid-column: span 12 / span 12;
+.card321 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-@media (min-width: 1280px) {
-  .colXl4 {
-    grid-column: span 4 / span 4;
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.goToReportButton {
+  margin-top: auto !important;
+  padding-top: 12px;
+}
+
+@media (max-width: 740px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -41,13 +55,44 @@
 
 .cardTitleStrong {
   color: var(--foreground);
-  font-weight: 600;
+  font: var(--title);
 }
 
 .subText {
   margin-top: 8px;
-  font-size: 12px;
-  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.subTextPill {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  max-width: 100%;
+  border-radius: 6px;
+  background: var(--muted);
+  padding: 0 10px;
+  font: var(--title-medium);
+  color: var(--text-title);
+}
+
+.subTextPillLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subTextIcon {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.subTextIconRight {
+  margin-left: auto;
 }
 
 .stackSm {
@@ -60,6 +105,10 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.moneyFillHeader {
+  padding-bottom: 35px;
 }
 
 .rowBetween {
@@ -77,8 +126,35 @@
 
 .textXs {
   font-size: 12px;
+  background: var(--background);
 }
 
+.sortBtn {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.sortBtnText {
+  font: var(--text-semibold-small);
+  color: var(--text-title);
+}
+
+.sortBtnIconBox {
+  display: grid;
+  place-items: center;
+  background: transparent;
+  flex-shrink: 0;
+}
 .textSm {
   font-size: 14px;
 }
@@ -92,7 +168,8 @@
 }
 
 .fontMedium {
-  font-weight: 500;
+  font: var(--title-small);
+  color: var(--text-title);
 }
 
 .fontSemi {
@@ -127,15 +204,31 @@
 .bigNumberRow {
   margin-top: 8px;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
+  background: var(--background);
+  border-radius: 12px;
+  padding: 12px 20px;
   gap: 12px;
+}
+
+.bigNumberBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
 
 .bigNumber {
   font-size: 36px;
   font-weight: 600;
   letter-spacing: -0.02em;
+  color: #475467;
+}
+
+.bigNumberCaption {
+  font: var(--text-regular-small);
+  color: var(--text-light);
 }
 
 .skelBigNumberInline {
@@ -146,50 +239,18 @@
 }
 
 .pctPill {
-  margin-bottom: 4px;
-  border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.04);
-  padding: 4px 8px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
+  margin-top: 8px;
+  border-radius: 8px;
+  background: var(--muted);
+  padding: 6px 10px;
+  font: var(--title-small);
+  color: var(--text-light);
 }
 
 .chart190 {
   height: 190px;
   width: 100%;
   border-radius: 16px;
-}
-
-.goReport {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.sortBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--background);
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 150ms ease;
-}
-
-.sortBtn:hover {
-  color: var(--foreground);
-}
-
-.iconSm {
-  height: 16px;
-  width: 16px;
-  opacity: 0.7;
 }
 
 .skelRow {
@@ -229,6 +290,13 @@
   gap: 24px;
 }
 
+@media (max-width: 520px) {
+  .moneyGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
 .metric {
   display: flex;
   flex-direction: column;
@@ -248,10 +316,3 @@
   align-items: center;
   gap: 6px;
 }
-
-.metricIcon {
-  height: 14px;
-  width: 14px;
-  opacity: 0.7;
-}
-

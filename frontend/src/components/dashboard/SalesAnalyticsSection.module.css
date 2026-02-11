@@ -12,17 +12,22 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: minmax(360px, 1fr) minmax(520px, 2fr);
+  align-items: stretch;
   gap: 20px;
 }
 
-.col12 {
-  grid-column: span 12 / span 12;
+.card321 {
+  min-width: 0;
 }
 
-@media (min-width: 1280px) {
-  .colXl6 {
-    grid-column: span 6 / span 6;
+.card653 {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -103,10 +108,3 @@
   width: 100%;
   border-radius: 16px;
 }
-
-.goReport {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--muted);
-}
-

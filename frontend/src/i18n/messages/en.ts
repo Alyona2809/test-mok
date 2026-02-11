@@ -101,4 +101,3 @@ export const en = {
     dayTitle: "Day {day}: {time}",
   },
 } as const;
-

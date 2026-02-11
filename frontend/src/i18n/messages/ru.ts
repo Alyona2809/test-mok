@@ -43,10 +43,9 @@ export const ru = {
     cards: {
       salesIndexTitle: "Индекс продаж по средней исторической активности",
       productFillTitle: "Заполнение товарами",
-      productFillSubtitle: "ТА требуют заполнения товаром",
+      productFillSubtitle: "ТА требуют пополнения товаром",
       moneyFillTitle: "Состояние денежных средств",
-      moneyFillSubtitle: "Сигналы наполнение ТА",
-      sortFirstFull: "Сначала полные ТА",
+      moneyFillSubtitle: "Сначала полные ТА",
       salesByVmTitle: "ТА по объемам продаж",
       totalSales: "Всего продаж",
       top5: "Топ-5: {count}",

@@ -4,9 +4,9 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Segmented } from "@/components/ui/Segmented";
+import { GoToReportButton } from "@/components/ui/GoToReportButton";
 import { useI18n } from "@/i18n";
 import styles from "./SalesAnalyticsSection.module.css";
-import { cn } from "@/lib/cn";
 
 export type PopularTabKey = "products" | "categories";
 
@@ -39,7 +39,7 @@ export function SalesAnalyticsSection({
     <section className={styles.section}>
       <div className={styles.title}>{t("dashboard.sections.salesAnalytics")}</div>
       <div className={styles.grid}>
-        <Card className={cn(styles.col12, styles.colXl6)}>
+        <Card className={styles.card321}>
           <CardHeader>
             <div className={styles.headerRow}>
               <div>
@@ -83,11 +83,11 @@ export function SalesAnalyticsSection({
                 </ResponsiveContainer>
               </div>
             )}
-            <div className={styles.goReport}>{t("common.goToReport")}</div>
+            <GoToReportButton />
           </CardContent>
         </Card>
 
-        <Card className={cn(styles.col12, styles.colXl6)}>
+        <Card className={styles.card653}>
           <CardHeader>
             <div className={styles.headerRow}>
               <div>
@@ -150,7 +150,7 @@ export function SalesAnalyticsSection({
                 </ResponsiveContainer>
               </div>
             )}
-            <div className={styles.goReport}>{t("common.goToReport")}</div>
+            <GoToReportButton />
           </CardContent>
         </Card>
       </div>

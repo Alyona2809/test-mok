@@ -33,13 +33,21 @@
 
 .heatGrid {
   display: grid;
-  grid-template-columns: repeat(31, minmax(0, 1fr));
+  grid-template-columns: repeat(31, 16px);
   gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .heatCell {
   height: 40px;
   border-radius: 6px;
   border: 1px solid rgba(17, 24, 39, 0.06);
+}
+
+@media (max-width: 640px) {
+  .heatCell {
+    height: 32px;
+  }
 }
 

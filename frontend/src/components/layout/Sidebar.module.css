@@ -78,6 +78,12 @@
   background: var(--card);
 }
 
+@media (max-width: 1024px) {
+  .menu {
+    display: none;
+  }
+}
+
 .menuHeader {
   padding: 9px 20px;
   border-bottom: 1px solid var(--border);

@@ -1,5 +1,5 @@
 :root {
-  --font-family: var(--font-montserrat), "Arial", sans-serif;
+  --font-family: var(--font-montserrat, "Montserrat"), "Arial", sans-serif;
   --title: 600 18px/28px var(--font-family);
   --title-medium-origin: 600 16px/24px var(--font-family);
   --title-letter-spacing: 0;
@@ -7,7 +7,7 @@
   --title-medium-rare: 500 16px/24px var(--font-family);
   --title-small: 500 12px/18px var(--font-family);
   --text-giant: 700 32px/42px var(--font-family);
-  --text-semibold-large: 500 15px/20px var(--font-family);
+  --text-semibold-large: 600 24px/32px var(--font-family);
   --text-semibold-medium: 500 14px/24px var(--font-family);
   --text-primary: 500 13px/20px var(--font-family);
   --text-semibold-small: 400 14px/20px var(--font-family);

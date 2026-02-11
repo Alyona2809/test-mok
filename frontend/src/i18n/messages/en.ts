@@ -9,6 +9,7 @@ export const en = {
     demoTab: "Demo tab: {tab}",
     goToReport: "Go to report",
     changeMetric: "Change metric",
+    other: "Other",
   },
   aria: {
     segmented: "Segmented control",
@@ -49,9 +50,13 @@ export const en = {
       sortFirstFull: "Fullest machines first",
       salesByVmTitle: "Machines by sales volume",
       totalSales: "Total sales",
+      totalSoldUnits: "Total units sold",
       top5: "Top-5: {count}",
+      soldInTop5Machines: "Sold in top-5 machines",
       popularTitle: "Popular",
       categoriesCount: "Categories: {count}",
+      categoriesInTop5: "Product categories in Top-5",
+      soldInTop5Products: "Sold in top-5 products",
     },
     tabs: {
       products: "Products",

@@ -160,7 +160,7 @@
 }
 
 .textMuted {
-  color: var(--muted);
+  color: var(--text-title);
 }
 
 .textFg {

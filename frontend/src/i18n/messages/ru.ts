@@ -9,6 +9,7 @@ export const ru = {
     demoTab: "Демо-вкладка: {tab}",
     goToReport: "Перейти в отчет",
     changeMetric: "Изменить показатель",
+    other: "Прочее",
   },
   aria: {
     segmented: "Переключатель вида",
@@ -48,9 +49,13 @@ export const ru = {
       moneyFillSubtitle: "Сначала полные ТА",
       salesByVmTitle: "ТА по объемам продаж",
       totalSales: "Всего продаж",
+      totalSoldUnits: "Всего проданных единиц",
       top5: "Топ-5: {count}",
+      soldInTop5Machines: "Итого продано в топ-5 ТА",
       popularTitle: "Популярные",
       categoriesCount: "Категорий: {count}",
+      categoriesInTop5: "Категории товаров из Топ-5",
+      soldInTop5Products: "Итого продано в топ-5 товаров",
     },
     tabs: {
       products: "Товары",

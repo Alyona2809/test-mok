@@ -28,6 +28,7 @@ type LabelRenderProps = {
   y?: number | string;
   width?: number | string;
   height?: number | string;
+  value?: unknown;
   payload?: unknown;
   viewBox?: unknown;
 };
@@ -156,7 +157,7 @@ export function MachinesHealthSection({
                   <BarChart
                     data={productFillChart}
                     barSize={57}
-                    margin={{ top: 22, right: 8, left: 8, bottom: 0 }}
+                    margin={{ top: 34, right: 8, left: 8, bottom: 0 }}
                   >
                     <XAxis dataKey="name" hide />
                     <YAxis hide />
@@ -180,6 +181,8 @@ export function MachinesHealthSection({
                       dataKey="itemCount"
                       radius={[16, 16, 16, 16]}
                       background={{ fill: "var(--muted)", radius: 16 }}
+                      // keep tiny values visible so the value pill doesn't get clipped
+                      minPointSize={34}
                     >
                       {productFillChart.map((entry) => {
                         const highlight =
@@ -226,11 +229,14 @@ export function MachinesHealthSection({
                           if (![x, y, width, height].every(Number.isFinite))
                             return null;
 
-                          const payload = props.payload as
-                            | { itemCount?: number; value?: number }
-                            | undefined;
-                          const itemCount = payload?.itemCount;
-                          if (itemCount == null) return null;
+                          const raw = props.value;
+                          const itemCount =
+                            typeof raw === "number"
+                              ? raw
+                              : raw == null
+                                ? NaN
+                                : Number(raw);
+                          if (!Number.isFinite(itemCount)) return null;
 
                           const label = String(itemCount);
                           const pillHeight = 20;
@@ -278,62 +284,31 @@ export function MachinesHealthSection({
                               : props.x == null
                                 ? NaN
                                 : Number(props.x);
-                          const y =
-                            typeof props.y === "number"
-                              ? props.y
-                              : props.y == null
-                                ? NaN
-                                : Number(props.y);
                           const width =
                             typeof props.width === "number"
                               ? props.width
                               : props.width == null
                                 ? NaN
                                 : Number(props.width);
-                          const height =
-                            typeof props.height === "number"
-                              ? props.height
-                              : props.height == null
+                          if (![x, width].every(Number.isFinite)) return null;
+
+                          const raw = props.value;
+                          const v =
+                            typeof raw === "number"
+                              ? raw
+                              : raw == null
                                 ? NaN
-                                : Number(props.height);
-                          if (![x, y, width, height].every(Number.isFinite))
-                            return null;
-
-                          const payload = props.payload as
-                            | { value?: number; itemCount?: number }
-                            | undefined;
-                          const v = payload?.value;
-                          if (v == null) return null;
-
-                          const vb = props.viewBox as
-                            | {
-                                x?: unknown;
-                                y?: unknown;
-                                width?: unknown;
-                                height?: unknown;
-                              }
-                            | undefined;
-                          const vbY =
-                            vb && typeof vb.y === "number" ? vb.y : undefined;
-                          const vbH =
-                            vb && typeof vb.height === "number"
-                              ? vb.height
-                              : undefined;
-                          const yInside =
-                            vbY != null && vbH != null
-                              ? Math.max(
-                                  vbY + 14,
-                                  Math.min(vbY + vbH - 8, vbY + 28),
-                                )
-                              : Math.max(16, Math.min(y + height - 8, y + 18));
+                                : Number(raw);
+                          if (!Number.isFinite(v)) return null;
                           return (
                             <text
                               x={x + width / 2}
-                              y={yInside}
+                              // fixed y like in the design (percent row at the top)
+                              y={22}
                               textAnchor="middle"
-                              fill="var(--text-light)"
+                              fill="rgba(71,84,103,0.55)"
                               fontSize={12}
-                              fontWeight={500}
+                              fontWeight={600}
                             >
                               {v} %
                             </text>

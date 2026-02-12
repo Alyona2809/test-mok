@@ -1,7 +1,7 @@
 "use client";
 
-import { Sidebar } from "@/components/layout/Sidebar";
-import { Topbar } from "@/components/layout/Topbar";
+import { Sidebar } from "@/components/layout/Sidebar/Sidebar";
+import { Topbar } from "@/components/layout/Topbar/Topbar";
 import styles from "./DashboardShell.module.css";
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {

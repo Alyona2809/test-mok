@@ -1,7 +1,7 @@
 "use client";
 
-import { Card } from "@/components/ui/Card";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { Card } from "@/components/ui/Card/Card";
+import { Skeleton } from "@/components/ui/Skeleton/Skeleton";
 import { cn } from "@/lib/cn";
 import { useI18n } from "@/i18n";
 import styles from "./StatCard.module.css";

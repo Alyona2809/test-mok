@@ -15,15 +15,18 @@ import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { useI18n } from "@/i18n";
 import styles from "./DashboardPage.module.css";
 import { DashboardControlsBar, type PeriodKey } from "./DashboardControlsBar";
-import { OverviewStatsGrid } from "./OverviewStatsGrid";
-import { VendingMapCard, type MapTabKey } from "./VendingMapCard";
-import { MachinesHealthSection } from "./MachinesHealthSection";
+import { OverviewStatsGrid } from "../StatSection/OverviewStatsGrid";
+import { VendingMapCard, type MapTabKey } from "../Map/VendingMapCard";
+import { MachinesHealthSection } from "../StatSection/MachinesHealthSection";
 import {
   SalesAnalyticsSection,
   type PopularTabKey,
-} from "./SalesAnalyticsSection";
-import { PeakSalesSection, type PeakViewKey } from "./PeakSalesSection";
-import { parseTimeSpanToMinutes } from "./peakTime";
+} from "../StatSection/SalesAnalyticsSection";
+import {
+  PeakSalesSection,
+  type PeakViewKey,
+} from "../StatSection/PeakSalesSection";
+import { parseTimeSpanToMinutes } from "../StatSection/peakTime";
 
 export function DashboardPage() {
   const { t } = useI18n();

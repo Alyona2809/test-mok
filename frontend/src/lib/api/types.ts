@@ -54,9 +54,5 @@ export type ProductsTotalSalesOverview = {
 
 export type PeakSaleTimeAtDay = {
   day: number;
-  /**
-   * .NET TimeSpan is usually serialized as "hh:mm:ss" (e.g. "14:05:00")
-   */
   peakSalesTime: string;
 };
-

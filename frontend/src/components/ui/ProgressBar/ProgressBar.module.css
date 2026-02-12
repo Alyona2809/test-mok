@@ -1,5 +1,5 @@
 .track {
-  height: 8px;
+  height: 4px;
   width: 100%;
   overflow: hidden;
   border-radius: 9999px;
@@ -32,4 +32,3 @@
 .toneBad {
   background: #f43f5e;
 }
-

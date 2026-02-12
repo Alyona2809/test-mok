@@ -10,125 +10,99 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card, CardContent, CardHeader } from "@/components/ui/Card";
-import { Skeleton } from "@/components/ui/Skeleton";
-import { GoToReportButton } from "@/components/ui/GoToReportButton";
+import { Card, CardContent, CardHeader } from "@/components/ui/Card/Card";
+import { Skeleton } from "@/components/ui/Skeleton/Skeleton";
+import { GoToReportButton } from "@/components/ui/Button/GoToReportButton";
 import { useI18n } from "@/i18n";
 import { cn } from "@/lib/cn";
 import styles from "./SalesAnalyticsSection.module.css";
-import controlsStyles from "./DashboardControlsBar.module.css";
+import controlsStyles from "../dashboard/DashboardControlsBar.module.css";
+import {
+  getLabelBoxXYWH,
+  renderFixedYPctLabel,
+  renderValuePill,
+  toFiniteNumber,
+  type RechartsLabelRenderProps,
+} from "../utils/rechartsLabelHelpers";
 
 export type PopularTabKey = "products" | "categories";
 
-type LabelRenderProps = {
-  x?: number | string;
-  y?: number | string;
-  width?: number | string;
-  height?: number | string;
-  value?: unknown;
-  payload?: unknown;
-};
+const PCT_LABEL_Y = 20;
 
-function renderValuePill(props: LabelRenderProps) {
-  const x =
-    typeof props.x === "number"
-      ? props.x
-      : props.x == null
-        ? NaN
-        : Number(props.x);
-  const y =
-    typeof props.y === "number"
-      ? props.y
-      : props.y == null
-        ? NaN
-        : Number(props.y);
-  const width =
-    typeof props.width === "number"
-      ? props.width
-      : props.width == null
-        ? NaN
-        : Number(props.width);
-  const height =
-    typeof props.height === "number"
-      ? props.height
-      : props.height == null
-        ? NaN
-        : Number(props.height);
-  if (![x, y, width, height].every(Number.isFinite)) return null;
+function withRankIdx<T extends { total: number; isOther?: boolean }>(
+  data: T[],
+) {
+  const order = data
+    .map((d, i) => ({ d, i }))
+    .filter(({ d }) => !d.isOther)
+    .sort((a, b) => b.d.total - a.d.total);
 
-  const raw = props.value;
-  const num = typeof raw === "number" ? raw : raw == null ? NaN : Number(raw);
-  if (!Number.isFinite(num)) return null;
+  const top3 = new Map<number, 0 | 1 | 2>();
+  order.slice(0, 3).forEach((x, rank) => {
+    top3.set(x.i, rank as 0 | 1 | 2);
+  });
 
-  const label = String(num);
-  const pillHeight = 20;
-  const pillPaddingX = 10;
-  const pillWidth = Math.max(34, label.length * 7 + pillPaddingX * 2);
-  const cx = x + width / 2;
-  const pillX = cx - pillWidth / 2;
-  // keep the value pill near the bottom; for very small bars we still
-  // want it visible (paired with Bar.minPointSize below)
-  const pillY = y + height - pillHeight - 8;
+  return data.map((d, i) => ({
+    ...d,
+    rankIdx: top3.get(i),
+  }));
+}
+
+function renderRankBadge(props: RechartsLabelRenderProps) {
+  const box = getLabelBoxXYWH(props);
+  if (!box) return null;
+  const rankIdx = toFiniteNumber(props.value);
+  if (rankIdx == null) return null;
+  const payload = props.payload as { isOther?: boolean } | undefined;
+  if (payload?.isOther) return null;
+  if (rankIdx !== 0 && rankIdx !== 1 && rankIdx !== 2) return null;
+
+  const cx = box.x + box.width / 2;
+  const size = 16;
+
+  const minY = PCT_LABEL_Y + 14;
+  const bottom = box.y + box.height;
+  const valuePillTop = bottom - 28;
+  const desiredY = box.y - size - 6;
+  const y = Math.max(minY, Math.min(desiredY, valuePillTop - size - 4));
+  const x0 = cx - size / 2;
+
+  if (rankIdx === 0) {
+    return (
+      <g transform={`translate(${x0},${y})`}>
+        <circle cx={8} cy={8} r={8} fill="#FEC84B" />
+        <rect x={7.4} y={3.6} width={1.2} height={8.4} fill="#F79009" />
+      </g>
+    );
+  }
+
+  if (rankIdx === 1) {
+    return (
+      <g transform={`translate(${x0},${y})`}>
+        <circle cx={8} cy={8} r={8} fill="#D0D5DD" />
+        <rect x={5.545} y={3.6} width={1.2} height={8.4} fill="#98A2B3" />
+        <rect x={9.26} y={3.6} width={1.2} height={8.4} fill="#98A2B3" />
+      </g>
+    );
+  }
 
   return (
-    <g>
-      <rect
-        x={pillX}
-        y={pillY}
-        width={pillWidth}
-        height={pillHeight}
-        rx={10}
-        ry={10}
-        fill="#ffffff"
-        stroke="rgba(16,24,40,0.08)"
-      />
-      <text
-        x={cx}
-        y={pillY + 14}
-        textAnchor="middle"
-        fill="rgba(16,24,40,0.92)"
-        fontSize={12}
-        fontWeight={600}
-      >
-        {label}
-      </text>
+    <g transform={`translate(${x0},${y})`}>
+      <circle cx={8} cy={8} r={8} fill="#93370D" />
+      <rect x={3.688} y={3.6} width={1.2} height={8.4} fill="#F77416" />
+      <rect x={7.403} y={3.6} width={1.2} height={8.4} fill="#F77416" />
+      <rect x={11.117} y={3.6} width={1.2} height={8.4} fill="#F77416" />
     </g>
   );
 }
 
-function renderPctLabel(props: LabelRenderProps) {
-  const x =
-    typeof props.x === "number"
-      ? props.x
-      : props.x == null
-        ? NaN
-        : Number(props.x);
-  const width =
-    typeof props.width === "number"
-      ? props.width
-      : props.width == null
-        ? NaN
-        : Number(props.width);
-  if (![x, width].every(Number.isFinite)) return null;
+const renderPctLabel = (props: RechartsLabelRenderProps) =>
+  renderFixedYPctLabel(props, PCT_LABEL_Y, { suffix: "%" });
 
-  const raw = props.value;
-  const pct = typeof raw === "number" ? raw : raw == null ? NaN : Number(raw);
-  if (!Number.isFinite(pct)) return null;
-
-  return (
-    <text
-      x={x + width / 2}
-      // fixed y like in the design (percent row at the top)
-      y={22}
-      textAnchor="middle"
-      fill="rgba(71,84,103,0.55)"
-      fontSize={12}
-      fontWeight={600}
-    >
-      {pct}%
-    </text>
-  );
-}
+const POPULAR_TABS = [
+  { value: "products", labelKey: "dashboard.tabs.products" },
+  { value: "categories", labelKey: "dashboard.tabs.categories" },
+] as const;
 
 export function SalesAnalyticsSection({
   salesByVmLoading,
@@ -167,6 +141,8 @@ export function SalesAnalyticsSection({
   }>;
 }) {
   const { t } = useI18n();
+  const salesByVmChartRanked = withRankIdx(salesByVmChart);
+  const salesByProductChartRanked = withRankIdx(salesByProductChart);
   const vmTop5Pct =
     typeof salesByVmTotalSales === "number" &&
     typeof salesByVmSoldInTopFive === "number" &&
@@ -178,8 +154,16 @@ export function SalesAnalyticsSection({
     typeof salesByProductTotalSold === "number" &&
     typeof salesByProductSoldInTopFive === "number" &&
     salesByProductTotalSold > 0
-      ? Math.round((salesByProductSoldInTopFive / salesByProductTotalSold) * 100)
+      ? Math.round(
+          (salesByProductSoldInTopFive / salesByProductTotalSold) * 100,
+        )
       : null;
+
+  const salesTooltipFormatter = (v: unknown, _n: unknown, props: unknown) => {
+    const val = typeof v === "number" ? v : Number(v);
+    const pct = (props as { payload?: { pct?: number } })?.payload?.pct;
+    return [`${val} (${pct ?? "—"}%)`, t("dashboard.tooltip.sales")];
+  };
 
   return (
     <section className={styles.section}>
@@ -203,39 +187,29 @@ export function SalesAnalyticsSection({
                 <div className={styles.chart220}>
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
-                      data={salesByVmChart}
-                      // narrower bars like in the design
-                      barSize={56}
-                      barCategoryGap={22}
-                      margin={{ top: 34, right: 8, left: 8, bottom: 0 }}
+                      data={salesByVmChartRanked}
+                      barSize={72}
+                      barCategoryGap={16}
+                      margin={{ top: 0, right: 8, left: 8, bottom: 0 }}
                     >
                       <XAxis dataKey="name" hide />
-                      <YAxis hide />
+                      <YAxis hide domain={[0, "dataMax"]} />
                       <Tooltip
                         cursor={{ fill: "rgba(0,0,0,0.03)" }}
                         contentStyle={{
                           borderRadius: 12,
                           borderColor: "rgba(0,0,0,0.08)",
                         }}
-                        formatter={(v: unknown, _n, props) => {
-                          const val = typeof v === "number" ? v : Number(v);
-                          const pct = (props.payload as { pct?: number })?.pct;
-                          return [
-                            `${val} (${pct ?? "—"}%)`,
-                            t("dashboard.tooltip.sales"),
-                          ];
-                        }}
+                        formatter={salesTooltipFormatter}
                       />
                       <Bar
                         dataKey="total"
-                        radius={[16, 16, 16, 16]}
-                        background={{ fill: "rgba(0,0,0,0.04)", radius: 16 }}
-                        // keep tiny values visible so the value pill doesn't get clipped
+                        radius={[0, 0, 12, 12]}
+                        background={{ fill: "rgba(0,0,0,0.04)", radius: 12 }}
                         minPointSize={34}
                       >
-                        {salesByVmChart.map((entry, idx) => (
+                        {salesByVmChartRanked.map((entry, idx) => (
                           <Cell
-                            // name is not unique when "Other" is present in multiple languages; include index
                             key={`${entry.name}-${idx}`}
                             fill={
                               entry.isOther
@@ -244,6 +218,10 @@ export function SalesAnalyticsSection({
                             }
                           />
                         ))}
+                        <LabelList
+                          dataKey="rankIdx"
+                          content={renderRankBadge}
+                        />
                         <LabelList dataKey="pct" content={renderPctLabel} />
                       </Bar>
                     </BarChart>
@@ -255,31 +233,31 @@ export function SalesAnalyticsSection({
             <div className={styles.statsRow}>
               <div className={styles.statCard}>
                 <div className={styles.stat}>
-                <div className={styles.statValue}>
-                  {salesByVmTotalSales ?? (
-                    <Skeleton className={styles.skelValueSm} />
-                  )}
-                </div>
-                <div className={styles.statLabel}>
-                  {t("dashboard.cards.totalSoldUnits")}
-                </div>
+                  <div className={styles.statValue}>
+                    {salesByVmTotalSales ?? (
+                      <Skeleton className={styles.skelValueSm} />
+                    )}
+                  </div>
+                  <div className={styles.statLabel}>
+                    {t("dashboard.cards.totalSoldUnits")}
+                  </div>
                 </div>
               </div>
               <div className={styles.statCard}>
                 <div className={styles.stat}>
-                <div className={styles.statTop}>
-                  <div className={styles.statValue}>
-                    {salesByVmSoldInTopFive ?? (
-                      <Skeleton className={styles.skelValueSm} />
+                  <div className={styles.statTop}>
+                    <div className={styles.statValue}>
+                      {salesByVmSoldInTopFive ?? (
+                        <Skeleton className={styles.skelValueSm} />
+                      )}
+                    </div>
+                    {vmTop5Pct == null ? null : (
+                      <div className={styles.pctPill}>{vmTop5Pct}%</div>
                     )}
                   </div>
-                  {vmTop5Pct == null ? null : (
-                    <div className={styles.pctPill}>{vmTop5Pct}%</div>
-                  )}
-                </div>
-                <div className={styles.statLabel}>
-                  {t("dashboard.cards.soldInTop5Machines")}
-                </div>
+                  <div className={styles.statLabel}>
+                    {t("dashboard.cards.soldInTop5Machines")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -302,18 +280,7 @@ export function SalesAnalyticsSection({
                   role="tablist"
                   aria-label={t("aria.segmented")}
                 >
-                  {(
-                    [
-                      {
-                        value: "products",
-                        label: t("dashboard.tabs.products"),
-                      },
-                      {
-                        value: "categories",
-                        label: t("dashboard.tabs.categories"),
-                      },
-                    ] as const
-                  ).map((opt) => {
+                  {POPULAR_TABS.map((opt) => {
                     const selected = opt.value === popularTab;
                     return (
                       <button
@@ -328,7 +295,7 @@ export function SalesAnalyticsSection({
                         role="tab"
                         aria-selected={selected}
                       >
-                        {opt.label}
+                        {t(opt.labelKey)}
                       </button>
                     );
                   })}
@@ -337,7 +304,7 @@ export function SalesAnalyticsSection({
             </div>
           </CardHeader>
           <CardContent className={styles.cardContent}>
-            <div className={styles.chartBox}>
+            <div className={cn(styles.chartBox, styles.chartBoxPopular)}>
               {salesByProductLoading ? (
                 <Skeleton className={styles.skelChart} />
               ) : popularTab === "categories" ? (
@@ -348,37 +315,27 @@ export function SalesAnalyticsSection({
                 <div className={styles.chart220}>
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
-                      data={salesByProductChart}
-                      // wider bars like in the design
-                      barSize={250}
-                      barCategoryGap={14}
-                      margin={{ top: 34, right: 8, left: 8, bottom: 0 }}
+                      data={salesByProductChartRanked}
+                      barCategoryGap={4}
+                      margin={{ top: 0, right: 8, left: 8, bottom: 0 }}
                     >
                       <XAxis dataKey="name" hide />
-                      <YAxis hide />
+                      <YAxis hide domain={[0, "dataMax"]} />
                       <Tooltip
                         cursor={{ fill: "rgba(0,0,0,0.03)" }}
                         contentStyle={{
                           borderRadius: 12,
                           borderColor: "rgba(0,0,0,0.08)",
                         }}
-                        formatter={(v: unknown, _n, props) => {
-                          const val = typeof v === "number" ? v : Number(v);
-                          const pct = (props.payload as { pct?: number })?.pct;
-                          return [
-                            `${val} (${pct ?? "—"}%)`,
-                            t("dashboard.tooltip.sales"),
-                          ];
-                        }}
+                        formatter={salesTooltipFormatter}
                       />
                       <Bar
                         dataKey="total"
-                        radius={[16, 16, 16, 16]}
-                        background={{ fill: "rgba(0,0,0,0.04)", radius: 16 }}
-                        // keep tiny values visible so the value pill doesn't get clipped
+                        radius={[0, 0, 12, 12]}
+                        background={{ fill: "rgba(0,0,0,0.04)", radius: 12 }}
                         minPointSize={34}
                       >
-                        {salesByProductChart.map((entry, idx) => (
+                        {salesByProductChartRanked.map((entry, idx) => (
                           <Cell
                             key={`${entry.name}-${idx}`}
                             fill={
@@ -388,6 +345,10 @@ export function SalesAnalyticsSection({
                             }
                           />
                         ))}
+                        <LabelList
+                          dataKey="rankIdx"
+                          content={renderRankBadge}
+                        />
                         <LabelList dataKey="pct" content={renderPctLabel} />
                         <LabelList dataKey="total" content={renderValuePill} />
                       </Bar>
@@ -400,14 +361,14 @@ export function SalesAnalyticsSection({
             <div className={styles.statsRow}>
               <div className={styles.statCard}>
                 <div className={styles.stat}>
-                <div className={styles.statValue}>
-                  {differentProductCategoriesCount ?? (
-                    <Skeleton className={styles.skelValueSm} />
-                  )}
-                </div>
-                <div className={styles.statLabel}>
-                  {t("dashboard.cards.categoriesInTop5")}
-                </div>
+                  <div className={styles.statValue}>
+                    {differentProductCategoriesCount ?? (
+                      <Skeleton className={styles.skelValueSm} />
+                    )}
+                  </div>
+                  <div className={styles.statLabel}>
+                    {t("dashboard.cards.categoriesInTop5")}
+                  </div>
                 </div>
               </div>
               <div className={styles.statCard}>
@@ -422,9 +383,9 @@ export function SalesAnalyticsSection({
                       <div className={styles.pctPill}>{productTop5Pct}%</div>
                     )}
                   </div>
-                <div className={styles.statLabel}>
-                  {t("dashboard.cards.soldInTop5Products")}
-                </div>
+                  <div className={cn(styles.statLabel, styles.statLabelLower)}>
+                    {t("dashboard.cards.soldInTop5Products")}
+                  </div>
                 </div>
               </div>
             </div>

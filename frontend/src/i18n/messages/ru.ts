@@ -54,7 +54,7 @@ export const ru = {
       soldInTop5Machines: "Итого продано в топ-5 ТА",
       popularTitle: "Популярные",
       categoriesCount: "Категорий: {count}",
-      categoriesInTop5: "Категории товаров из Топ-5",
+      categoriesInTop5: "Категории товаров\nиз Топ-5",
       soldInTop5Products: "Итого продано в топ-5 товаров",
     },
     tabs: {

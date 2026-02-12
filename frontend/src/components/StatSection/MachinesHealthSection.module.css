@@ -99,6 +99,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  flex: 1;
+  min-height: 0;
 }
 
 .stackXs {
@@ -127,6 +129,7 @@
 .textXs {
   font-size: 12px;
   background: var(--background);
+  padding: 3px;
 }
 
 .sortBtn {
@@ -172,8 +175,14 @@
   color: var(--text-title);
 }
 
+.fontMediums {
+  font: var(--title-medium-rare);
+  color: var(--foreground);
+}
+
 .fontSemi {
-  font-weight: 600;
+  font: var(--title-medium-rare);
+  color: var(--foreground);
 }
 
 .chip {
@@ -248,7 +257,7 @@
 }
 
 .chart190 {
-  height: 190px;
+  height: 160px;
   width: 100%;
   border-radius: 16px;
 }
@@ -265,29 +274,35 @@
   border-radius: 12px;
 }
 
-.moneyList > * + * {
-  border-top: 1px solid var(--border);
+.moneyList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-height: 0;
 }
 
 .moneyRow {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 12px 0;
+  padding: 3px;
+  background: var(--background);
+  border-radius: 12px;
 }
 
 .machineIdBox {
-  min-width: 96px;
+  min-width: 112px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .moneyGrid {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  gap: 28px;
 }
 
 @media (max-width: 520px) {
@@ -300,7 +315,7 @@
 .metric {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .metricHeader {

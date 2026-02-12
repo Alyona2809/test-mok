@@ -10,9 +10,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
-import { ProgressBar } from "@/components/ui/ProgressBar";
-import { Skeleton } from "@/components/ui/Skeleton";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/Card/Card";
+import { ProgressBar } from "@/components/ui/ProgressBar/ProgressBar";
+import { Skeleton } from "@/components/ui/Skeleton/Skeleton";
 import type {
   SalesIndexItem,
   VendingMachineMoneyStatus,
@@ -21,17 +26,12 @@ import { cn } from "@/lib/cn";
 import { useI18n } from "@/i18n";
 import styles from "./MachinesHealthSection.module.css";
 import Image from "next/image";
-import { GoToReportButton } from "@/components/ui/GoToReportButton";
-
-type LabelRenderProps = {
-  x?: number | string;
-  y?: number | string;
-  width?: number | string;
-  height?: number | string;
-  value?: unknown;
-  payload?: unknown;
-  viewBox?: unknown;
-};
+import { GoToReportButton } from "@/components/ui/Button/GoToReportButton";
+import {
+  renderFixedYPctLabel,
+  renderValuePill,
+  type RechartsLabelRenderProps,
+} from "../utils/rechartsLabelHelpers";
 
 export function MachinesHealthSection({
   salesIndexLoading,
@@ -54,6 +54,17 @@ export function MachinesHealthSection({
 }) {
   const { t } = useI18n();
   const PRODUCT_FILL_HIGHLIGHT_THRESHOLD = 10;
+  const PRODUCT_FILL_PCT_LABEL_Y = 20;
+
+  const chipClass = (machineType: string) =>
+    cn(
+      styles.chip,
+      machineType === "B"
+        ? styles.chipB
+        : machineType === "M"
+          ? styles.chipM
+          : styles.chipOther,
+    );
 
   return (
     <section className={styles.section}>
@@ -108,16 +119,7 @@ export function MachinesHealthSection({
                           styles.textFg,
                         )}
                       >
-                        <span
-                          className={cn(
-                            styles.chip,
-                            x.machineType === "B"
-                              ? styles.chipB
-                              : x.machineType === "M"
-                                ? styles.chipM
-                                : styles.chipOther,
-                          )}
-                        >
+                        <span className={chipClass(x.machineType)}>
                           {x.machineType}
                         </span>
                         <span>#{x.machineId}</span>
@@ -156,11 +158,11 @@ export function MachinesHealthSection({
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={productFillChart}
-                    barSize={57}
-                    margin={{ top: 34, right: 8, left: 8, bottom: 0 }}
+                    barSize={76}
+                    margin={{ top: 0, right: 8, left: 8, bottom: 0 }}
                   >
                     <XAxis dataKey="name" hide />
-                    <YAxis hide />
+                    <YAxis hide domain={[0, "dataMax"]} />
                     <Tooltip
                       cursor={{ fill: "rgba(0,0,0,0.03)" }}
                       contentStyle={{
@@ -179,9 +181,8 @@ export function MachinesHealthSection({
                     />
                     <Bar
                       dataKey="itemCount"
-                      radius={[16, 16, 16, 16]}
+                      radius={[0, 0, 12, 12]}
                       background={{ fill: "var(--muted)", radius: 16 }}
-                      // keep tiny values visible so the value pill doesn't get clipped
                       minPointSize={34}
                     >
                       {productFillChart.map((entry) => {
@@ -201,119 +202,22 @@ export function MachinesHealthSection({
                       })}
                       <LabelList
                         dataKey="itemCount"
-                        content={(props: LabelRenderProps) => {
-                          const x =
-                            typeof props.x === "number"
-                              ? props.x
-                              : props.x == null
-                                ? NaN
-                                : Number(props.x);
-                          const y =
-                            typeof props.y === "number"
-                              ? props.y
-                              : props.y == null
-                                ? NaN
-                                : Number(props.y);
-                          const width =
-                            typeof props.width === "number"
-                              ? props.width
-                              : props.width == null
-                                ? NaN
-                                : Number(props.width);
-                          const height =
-                            typeof props.height === "number"
-                              ? props.height
-                              : props.height == null
-                                ? NaN
-                                : Number(props.height);
-                          if (![x, y, width, height].every(Number.isFinite))
-                            return null;
-
-                          const raw = props.value;
-                          const itemCount =
-                            typeof raw === "number"
-                              ? raw
-                              : raw == null
-                                ? NaN
-                                : Number(raw);
-                          if (!Number.isFinite(itemCount)) return null;
-
-                          const label = String(itemCount);
-                          const pillHeight = 20;
-                          const pillPaddingX = 10;
-                          const pillWidth = Math.max(
-                            34,
-                            label.length * 7 + pillPaddingX * 2,
-                          );
-                          const cx = x + width / 2;
-                          const pillX = cx - pillWidth / 2;
-                          const unclampedPillY = y + height - pillHeight - 10;
-                          const pillY = Math.max(y + 6, unclampedPillY);
-                          return (
-                            <g>
-                              <rect
-                                x={pillX}
-                                y={pillY}
-                                width={pillWidth}
-                                height={pillHeight}
-                                rx={10}
-                                ry={10}
-                                fill="#ffffff"
-                                stroke="rgba(16,24,40,0.08)"
-                              />
-                              <text
-                                x={cx}
-                                y={pillY + 14}
-                                textAnchor="middle"
-                                fill="rgba(16,24,40,0.92)"
-                                fontSize={12}
-                                fontWeight={600}
-                              >
-                                {label}
-                              </text>
-                            </g>
-                          );
-                        }}
+                        content={(props: RechartsLabelRenderProps) =>
+                          renderValuePill(props, {
+                            bottomOffset: 10,
+                            minTopInset: 6,
+                          })
+                        }
                       />
                       <LabelList
                         dataKey="value"
-                        content={(props: LabelRenderProps) => {
-                          const x =
-                            typeof props.x === "number"
-                              ? props.x
-                              : props.x == null
-                                ? NaN
-                                : Number(props.x);
-                          const width =
-                            typeof props.width === "number"
-                              ? props.width
-                              : props.width == null
-                                ? NaN
-                                : Number(props.width);
-                          if (![x, width].every(Number.isFinite)) return null;
-
-                          const raw = props.value;
-                          const v =
-                            typeof raw === "number"
-                              ? raw
-                              : raw == null
-                                ? NaN
-                                : Number(raw);
-                          if (!Number.isFinite(v)) return null;
-                          return (
-                            <text
-                              x={x + width / 2}
-                              // fixed y like in the design (percent row at the top)
-                              y={22}
-                              textAnchor="middle"
-                              fill="rgba(71,84,103,0.55)"
-                              fontSize={12}
-                              fontWeight={600}
-                            >
-                              {v} %
-                            </text>
-                          );
-                        }}
+                        content={(props: RechartsLabelRenderProps) =>
+                          renderFixedYPctLabel(
+                            props,
+                            PRODUCT_FILL_PCT_LABEL_Y,
+                            { suffix: " %" },
+                          )
+                        }
                       />
                     </Bar>
                   </BarChart>
@@ -379,16 +283,7 @@ export function MachinesHealthSection({
                     className={styles.moneyRow}
                   >
                     <div className={styles.machineIdBox}>
-                      <span
-                        className={cn(
-                          styles.chip,
-                          x.machineType === "B"
-                            ? styles.chipB
-                            : x.machineType === "M"
-                              ? styles.chipM
-                              : styles.chipOther,
-                        )}
-                      >
+                      <span className={chipClass(x.machineType)}>
                         {x.machineType}
                       </span>
                       <span

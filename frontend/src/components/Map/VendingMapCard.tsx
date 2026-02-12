@@ -1,14 +1,17 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Card } from "@/components/ui/Card";
-import type { SalesIndexItem, VendingMachineMoneyStatus } from "@/lib/api/types";
+import { Card } from "@/components/ui/Card/Card";
+import type {
+  SalesIndexItem,
+  VendingMachineMoneyStatus,
+} from "@/lib/api/types";
 import { useI18n } from "@/i18n";
 import styles from "./VendingMapCard.module.css";
 
 const VendingMap = dynamic(
   () =>
-    import("@/components/dashboard/VendingMap").then((m) => ({
+    import("@/components/Map/VendingMap").then((m) => ({
       default: m.VendingMap,
     })),
   { ssr: false, loading: () => <div className={styles.loading} /> },
@@ -63,7 +66,11 @@ export function VendingMapCard({
         </div>
         <div className={styles.footer}>
           <div className={styles.footerInner}>
-            <div className={styles.tabs} role="tablist" aria-label={t("aria.segmented")}>
+            <div
+              className={styles.tabs}
+              role="tablist"
+              aria-label={t("aria.segmented")}
+            >
               {options.map((opt) => {
                 const selected = opt.value === mapTab;
                 return (
@@ -86,4 +93,3 @@ export function VendingMapCard({
     </section>
   );
 }
-

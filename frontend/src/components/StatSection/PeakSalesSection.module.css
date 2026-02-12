@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  background-color: var(--background-light);
 }
 
 .header {
@@ -11,14 +12,15 @@
   gap: 12px;
 }
 
-.title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--foreground);
+.tabsWrap {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
 }
 
-.contentPadTop {
-  padding-top: 20px;
+.title {
+  font: var(--title);
+  color: var(--foreground);
+  margin: 20px 30px;
 }
 
 .skelChart {
@@ -27,8 +29,12 @@
   border-radius: 16px;
 }
 
+.cardContent {
+  padding-left: 8px;
+}
+
 .chart {
-  height: 260px;
+  height: 240px;
 }
 
 .heatGrid {
@@ -45,9 +51,15 @@
   border: 1px solid rgba(17, 24, 39, 0.06);
 }
 
+.yTick {
+  font: var(--title-small);
+  fill: var(--text-light);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
 @media (max-width: 640px) {
   .heatCell {
     height: 32px;
   }
 }
-

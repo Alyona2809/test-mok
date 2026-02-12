@@ -1,5 +1,4 @@
 export function parseTimeSpanToMinutes(time: string) {
-  // "HH:mm:ss"
   const [hh, mm] = time.split(":");
   const h = Number(hh);
   const m = Number(mm);
@@ -12,4 +11,3 @@ export function fmtMinutesToHHMM(min: number) {
   const m = Math.floor(min % 60);
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
-

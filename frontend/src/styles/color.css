@@ -1,0 +1,28 @@
+:root {
+  --background: #ffffff;
+  --background-origin: #fcfcfd;
+  --foreground: #101828;
+  --text-day: #344054;
+  --text-light: #98a2b3;
+  --text-extra-light: #d0d5dd;
+  --background-light: #f9fafb;
+  --text-title: #667085;
+  --card: #ffffff;
+  --muted: #f2f4f7;
+  --border: rgba(17, 24, 39, 0.08);
+  --primary: #d80b3a;
+  --primary-2: #ff2d55;
+  --ring: rgba(216, 11, 58, 0.25);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}

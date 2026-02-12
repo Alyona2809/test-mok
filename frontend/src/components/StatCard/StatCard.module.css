@@ -1,0 +1,116 @@
+.card {
+  height: 100%;
+}
+
+.bgFill {
+  --fill: 0;
+  --fillAlpha: 0.03;
+  --fillStop: calc(var(--fill) * 1%);
+  --fade: 100%;
+
+  background: linear-gradient(
+    90deg,
+    rgb(var(--fillRgb) / var(--fillAlpha)) 0%,
+    rgb(var(--fillRgb) / var(--fillAlpha))
+      max(0%, calc(var(--fillStop) - var(--fade))),
+    rgb(var(--fillRgb) / 0) var(--fillStop),
+    #ffffff var(--fillStop),
+    #ffffff 100%
+  );
+}
+
+.fillGood {
+  --fillRgb: 6 118 71;
+  --fillAlpha: 0.03;
+}
+
+.fillWarn {
+  --fillRgb: 147 55 13;
+  --fillAlpha: 0.03;
+}
+
+.fillBad {
+  --fillRgb: 145 32 24;
+  --fillAlpha: 0.03;
+}
+
+.body {
+  padding: 20px 20px 16px 20px;
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.label {
+  font: var(--text-semibold-small);
+  color: var(--text-title);
+}
+
+.openBtn {
+  display: grid;
+  height: 32px;
+  width: 32px;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.openBtn:hover {
+  border-color: var(--border);
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--foreground);
+}
+
+.openIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.value {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+
+.toneGood {
+  color: #16a34a;
+}
+
+.toneWarn {
+  color: #d97706;
+}
+
+.toneBad {
+  color: #e11d48;
+}
+
+.pct {
+  padding-bottom: 4px;
+  font: var(--text-primary);
+  color: var(--text-light);
+}
+
+.skelValue {
+  height: 40px;
+  width: 80px;
+  border-radius: 12px;
+}

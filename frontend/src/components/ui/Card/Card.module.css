@@ -1,0 +1,19 @@
+.card {
+  border-radius: 12px;
+  background: var(--background-light);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+.header {
+  padding: 20px 20px 12px 20px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-title);
+}
+
+.content {
+  padding: 0 20px 20px 20px;
+}

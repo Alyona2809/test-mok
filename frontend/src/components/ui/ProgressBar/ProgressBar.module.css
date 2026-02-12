@@ -1,0 +1,34 @@
+.track {
+  height: 4px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.bar {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--primary);
+  transition: width 700ms ease-out;
+}
+
+.thin {
+  height: 4px;
+}
+
+.tonePrimary {
+  background: var(--primary);
+}
+
+.toneGood {
+  background: #22c55e;
+}
+
+.toneWarn {
+  background: #f59e0b;
+}
+
+.toneBad {
+  background: #f43f5e;
+}

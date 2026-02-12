@@ -1,0 +1,333 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font: var(--text-semibold-large);
+  color: var(--text-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  align-items: stretch;
+  gap: 20px;
+}
+
+.card321 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.goToReportButton {
+  margin-top: auto !important;
+  padding-top: 12px;
+}
+
+@media (max-width: 740px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeaderRowTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardTitleStrong {
+  color: var(--foreground);
+  font: var(--title);
+}
+
+.subText {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.subTextPill {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  max-width: 100%;
+  border-radius: 6px;
+  background: var(--muted);
+  padding: 0 10px;
+  font: var(--title-medium);
+  color: var(--text-title);
+}
+
+.subTextPillLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subTextIcon {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.subTextIconRight {
+  margin-left: auto;
+}
+
+.stackSm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.stackXs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.moneyFillHeader {
+  padding-bottom: 35px;
+}
+
+.rowBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.leftInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.textXs {
+  font-size: 12px;
+  background: var(--background);
+  padding: 3px;
+}
+
+.sortBtn {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.sortBtnText {
+  font: var(--text-semibold-small);
+  color: var(--text-title);
+}
+
+.sortBtnIconBox {
+  display: grid;
+  place-items: center;
+  background: transparent;
+  flex-shrink: 0;
+}
+.textSm {
+  font-size: 14px;
+}
+
+.textMuted {
+  color: var(--text-title);
+}
+
+.textFg {
+  color: var(--foreground);
+}
+
+.fontMedium {
+  font: var(--title-small);
+  color: var(--text-title);
+}
+
+.fontMediums {
+  font: var(--title-medium-rare);
+  color: var(--foreground);
+}
+
+.fontSemi {
+  font: var(--title-medium-rare);
+  color: var(--foreground);
+}
+
+.chip {
+  display: grid;
+  height: 20px;
+  width: 20px;
+  place-items: center;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.chipB {
+  background: rgba(216, 11, 58, 0.1);
+  color: var(--primary);
+}
+
+.chipM {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+
+.chipOther {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--muted);
+}
+
+.bigNumberRow {
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: var(--background);
+  border-radius: 12px;
+  padding: 12px 20px;
+  gap: 12px;
+}
+
+.bigNumberBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.bigNumber {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #475467;
+}
+
+.bigNumberCaption {
+  font: var(--text-regular-small);
+  color: var(--text-light);
+}
+
+.skelBigNumberInline {
+  display: inline-block;
+  height: 40px;
+  width: 80px;
+  border-radius: 12px;
+}
+
+.pctPill {
+  margin-top: 8px;
+  border-radius: 8px;
+  background: var(--muted);
+  padding: 6px 10px;
+  font: var(--title-small);
+  color: var(--text-light);
+}
+
+.chart190 {
+  height: 160px;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.skelRow {
+  height: 36px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.skelMoneyRow {
+  height: 48px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.moneyList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-height: 0;
+}
+
+.moneyRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 3px;
+  background: var(--background);
+  border-radius: 12px;
+}
+
+.machineIdBox {
+  min-width: 112px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.moneyGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+@media (max-width: 520px) {
+  .moneyGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

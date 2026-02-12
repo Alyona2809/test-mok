@@ -1,0 +1,177 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font: var(--text-semibold-large);
+  color: var(--text-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(520px, 2fr);
+  align-items: stretch;
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.goToReportButton {
+  margin-top: auto !important;
+  padding-top: 12px;
+}
+
+.card321 {
+  min-width: 0;
+}
+
+.card653 {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 52px;
+  flex-wrap: nowrap;
+}
+
+.hTitle {
+  color: var(--foreground);
+  font: var(--title);
+}
+
+.rightStack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabsWrap {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.demo {
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.chartBox {
+  border-radius: 2px;
+  flex: 1;
+  height: auto;
+  min-height: 244px;
+  width: 100%;
+  display: flex;
+}
+
+.chartBoxPopular {
+  flex: 0 0 auto;
+  height: 245px;
+}
+
+.chart220 {
+  flex: 1;
+  height: 100%;
+}
+
+.statsRow {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  align-items: start;
+  padding: 0;
+}
+
+.statCard {
+  background: var(--background);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.stat {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.statValue {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #475467;
+}
+
+.statLabel {
+  font: var(--title-small);
+  color: var(--text-light);
+  white-space: pre-line;
+}
+
+.statLabelLower {
+  margin-top: 15px;
+}
+
+.pctPill {
+  margin-top: 6px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.skelValueSm {
+  height: 28px;
+  width: 96px;
+  border-radius: 6px;
+}
+
+.skelValueMd {
+  height: 28px;
+  width: 112px;
+  border-radius: 6px;
+}
+
+.skelChart {
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+}

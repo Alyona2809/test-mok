@@ -1,0 +1,180 @@
+.header {
+  z-index: 20;
+  display: flex;
+  height: 64px;
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
+}
+
+.left {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.searchWrap {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  gap: 8px;
+  border-right: 1px solid var(--border);
+  background: var(--muted);
+  padding: 0 16px;
+  color: var(--text-light);
+}
+
+.searchIcon {
+  flex-shrink: 0;
+}
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-light);
+  font: var(--text-medium-rare);
+}
+
+.searchInput::placeholder {
+  color: var(--text-light);
+}
+
+.pillCount {
+  display: grid;
+  height: 20px;
+  min-width: 20px;
+  place-items: center;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.right {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.refreshBtn {
+  display: none;
+  height: 100%;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  padding: 0 16px;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.refreshBtn:hover {
+  color: var(--foreground);
+}
+
+@media (min-width: 768px) {
+  .refreshBtn {
+    display: flex;
+  }
+}
+
+.refreshIcon {
+  height: 16px;
+  width: 16px;
+  opacity: 0.7;
+}
+
+.refreshMeta {
+  text-align: left;
+  line-height: 1.1;
+}
+
+.refreshLabel,
+.refreshTime {
+  font: var(--title-small);
+  color: var(--text-light);
+}
+
+.notifBtn {
+  position: relative;
+  display: grid;
+  height: 100%;
+  width: 64px;
+  flex-shrink: 0;
+  place-items: center;
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+
+.notifBtn:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.notifIcon {
+  height: 20px;
+  width: 20px;
+}
+
+.notifDot {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  height: 8px;
+  width: 8px;
+  border-radius: 9999px;
+  background: var(--primary);
+}
+
+.user {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  padding: 0 16px;
+}
+
+.avatar {
+  height: 36px;
+  width: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.userMeta {
+  display: none;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .userMeta {
+    display: block;
+  }
+}
+
+.userName {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.userCity {
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--muted);
+}

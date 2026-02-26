@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const DEFAULT_BASE = "http://localhost:5165";
+const DEFAULT_BASE = "https://test-mok.vercel.app";
 
 function getBaseUrl() {
   return (process.env.BFF_BASE_URL || DEFAULT_BASE).replace(/\/+$/, "");
@@ -24,7 +24,8 @@ export async function GET(
     cache: "no-store",
   });
 
-  const contentType = upstream.headers.get("content-type") ?? "application/json";
+  const contentType =
+    upstream.headers.get("content-type") ?? "application/json";
   const body = await upstream.text();
 
   return new NextResponse(body, {
@@ -34,4 +35,3 @@ export async function GET(
     },
   });
 }
-

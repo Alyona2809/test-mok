@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const DEFAULT_BASE = "https://test-mok.vercel.app";
+const DEFAULT_BASE = "bfftestmock-main-production.up.railway.app";
 
 function getBaseUrl() {
   return (process.env.BFF_BASE_URL || DEFAULT_BASE).replace(/\/+$/, "");

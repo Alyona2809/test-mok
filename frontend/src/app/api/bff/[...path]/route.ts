@@ -3,7 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 const DEFAULT_BASE = "bfftestmock-main-production.up.railway.app";
 
 function getBaseUrl() {
-  return (process.env.BFF_BASE_URL || DEFAULT_BASE).replace(/\/+$/, "");
+  const raw = (process.env.BFF_BASE_URL || DEFAULT_BASE).replace(/\/+$/, "");
+  if (!raw.startsWith("http://") && !raw.startsWith("https://")) {
+    return `https://${raw}`;
+  }
+  return raw;
 }
 
 export async function GET(
